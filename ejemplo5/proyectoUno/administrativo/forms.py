@@ -53,6 +53,14 @@ class NumeroTelefonicoForm(ModelForm):
         model = NumeroTelefonico
         fields = ['telefono', 'tipo', 'estudiante']
 
+    def clean_telefono(self):
+        valor = self.cleaned_data['telefono']
+        if not (valor.startswith('099') or valor.startswith('098')):
+            raise forms.ValidationError("El número telefónico debe ser de Claro (099) o Movistar (098)")
+        if len(valor) != 10:
+            raise forms.ValidationError("El número telefónico debe tener 10 dígitos")
+        return valor
+
 
 class NumeroTelefonicoEstudianteForm(ModelForm):
 
@@ -65,3 +73,11 @@ class NumeroTelefonicoEstudianteForm(ModelForm):
     class Meta:
         model = NumeroTelefonico
         fields = ['telefono', 'tipo', 'estudiante']
+
+    def clean_telefono(self):
+        valor = self.cleaned_data['telefono']
+        if not (valor.startswith('099') or valor.startswith('098')):
+            raise forms.ValidationError("El número telefónico debe ser de Claro (099) o Movistar (098)")
+        if len(valor) != 10:
+            raise forms.ValidationError("El número telefónico debe tener 10 dígitos")
+        return valor

@@ -21,6 +21,8 @@ class Estudiante(models.Model):
         valor = "Sin Provincia"
         if dato == "11":
             valor = "Loja"
+        elif dato == "19":
+            valor = "Zamora"
         else:
             if dato == "17":
                 valor = "Pichincha"
