@@ -21,3 +21,11 @@ class NumeroTelefonico(models.Model):
     def __str__(self):
         return "%s %s" % (self.telefono, self.tipo)
 
+    def operadora(self):
+        numero = (self.telefono or "").strip()
+        if numero.startswith('099'):
+            return 'Claro'
+        if numero.startswith('098'):
+            return 'Movistar'
+        return 'Convencional'
+
