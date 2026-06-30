@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django import forms
 
 from administrativo.models import Estudiante, \
-        NumeroTelefonico
+        NumeroTelefonico, Usuario
 
 class EstudianteForm(ModelForm):
     class Meta:
@@ -20,11 +20,9 @@ class EstudianteForm(ModelForm):
     def clean_nombre(self):
         valor = self.cleaned_data['nombre']
         num_palabras = len(valor.split())
-        """
-        """
 
         if num_palabras < 2:
-            raise forms.ValidationError("Ingrese dos nombre por favor")
+            raise forms.ValidationError("Ingrese dos nombres por favor")
         return valor
 
     def clean_apellido(self):
@@ -63,8 +61,18 @@ class NumeroTelefonicoEstudianteForm(ModelForm):
         super(NumeroTelefonicoEstudianteForm, self).__init__(*args, **kwargs)
         self.initial['estudiante'] = estudiante
         self.fields["estudiante"].widget = forms.widgets.HiddenInput()
-        print(estudiante)
 
     class Meta:
         model = NumeroTelefonico
         fields = ['telefono', 'tipo', 'estudiante']
+
+class UserForm(ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['username', 'correo', 'comentario']
+        widgets = {
+            'comentario': forms.Textarea(attrs={
+                'rows': 5,
+                'class': 'form-control'
+            })
+        }
