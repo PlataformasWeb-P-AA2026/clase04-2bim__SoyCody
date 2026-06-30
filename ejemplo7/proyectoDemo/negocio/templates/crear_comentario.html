@@ -1,0 +1,14 @@
+{% extends "master.html" %}
+{% block title %}
+Comentar
+{% endblock %}
+{% block content %}
+<h2>Comentar</h2>
+<p>{{user.username}}</p>
+<form action="" method="post">
+  {% csrf_token %}
+  {{formulario.as_p}}
+  <p><input type='submit' value='Agregar'/></p>
+</form>
+
+{% endblock %}
